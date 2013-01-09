@@ -1,0 +1,7 @@
+<%= form_for(@simulation) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :input, placeholder: "New Simulation..." %>
+  </div>
+  <%= f.submit "Save", class: "btn btn-large btn-primary" %>
+<% end %>

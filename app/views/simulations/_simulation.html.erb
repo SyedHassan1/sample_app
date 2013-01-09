@@ -1,0 +1,13 @@
+<li>
+  <span class="input"><%= simulation.input %></span>
+  <span class="timestamp">
+    Created <%= time_ago_in_words(simulation.created_at) %> ago.
+  </span>
+  <% if current_user?(simulation.user) %>
+    <%= link_to "delete", simulation, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: simulation.input %>
+  <% end %>
+</li>
+
+

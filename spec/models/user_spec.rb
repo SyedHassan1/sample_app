@@ -25,6 +25,7 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:simulations) }
   it { should respond_to(:admin) }
   it { should be_valid }
   it { should_not be_admin }
@@ -124,5 +125,26 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+  describe "simulation associations" do
 
+    before { @user.save }
+    let!(:older_simulation) do 
+      FactoryGirl.create(:simulation, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_simulation) do
+      FactoryGirl.create(:simulation, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right simulations in the right order" do
+      @user.simulations.should == [newer_simulation, older_simulation]
+    end
+    it "should destroy associated simulations" do
+      simulations = @user.simulations.dup
+      @user.destroy
+      simulations.should_not be_empty
+      simulations.each do |simulation|
+        Simulation.find_by_id(simulation.id).should be_nil
+      end
+    end
+  end
 end

@@ -53,12 +53,21 @@ describe "User pages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:simulation, user: user, input: "Foo") }
+    let!(:m2) { FactoryGirl.create(:simulation, user: user, input: "Bar") }
+
     before { visit user_path(user) }
 
     it { should have_selector('h1',    text: user.name) }
     it { should have_selector('title', text: user.name) }
-  end
 
+    describe "simulations" do
+      it { should have_content(m1.input) }
+      it { should have_content(m2.input) }
+      it { should have_content(user.simulations.count) }
+
+    end
+  end
   describe "signup page" do
 
     before { visit signup_path }

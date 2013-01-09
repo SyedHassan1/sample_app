@@ -1,12 +1,25 @@
-<div class="center hero-unit">
-  <h1>Simulator for MEMS</h1>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/simulation_form' %>
+      </section>
+    </aside>
+  </div>  
+<% else %>
+  <div class="center hero-unit">
+    <h1>Simulator for MEMS</h1>
 
-  <h2>
-    A web version of a finite element simulator for
-    <a href="http://www.cs.cornell.edu/~bindel/research.html#mems">Micro-electro-mechanical systems (MEMS)</a>
-  </h2>
+    <h2>
+      A web version of a finite element simulator for
+      <a href="http://www.cs.cornell.edu/~bindel/research.html#mems">Micro-electro-mechanical systems (MEMS)</a>
+    </h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-</div>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  </div>
 
-<%= link_to image_tag("mems.png", alt: "Rails"), 'http://www.cs.cornell.edu/~bindel/research.html#mems' %>
+  <%= link_to image_tag("mems.png", alt: "Rails"), 'http://www.cs.cornell.edu/~bindel/research.html#mems' %>
+<% end %>
